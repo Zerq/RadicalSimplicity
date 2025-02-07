@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Radical Simplicity</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+
+
+    }
+
+    body {
+        display: grid;
+        grid-template:
+            "intro intro techStack"
+            "intro intro setup"
+            "environment  letsCode letsCode"
+            "codingcontinued1 codingcontinued1 codingcontinued1"
+        ;
+        width: fit-content;
+        margin-inline: auto;
+        background-color: #ffe;
+    }
+
+    .letsCode {
+        grid-area: letsCode;
+    }
+
+    .intro {
+        grid-area: intro;
+    }
+
+    .techStackEtc {
+        grid-area: techStack;
+    }
+
+    .setup {
+        grid-area: setup;
+    }
+
+    .environment {
+        grid-area: environment;
+    }
+.codingcontinued1{
+   p {
+        width: fit-content !important;
+    }
+
+ 
+    grid-area: codingcontinued1;
+
+ 
+}
+
+
+    .codingcontinued1,
+    .letsCode,
+    .environment,
+    .intro,
+    .techStackEtc,
+    .setup {
+        margin: 1rem;
+
+
+        border: dashed gray 0.1rem;
+        border-radius: 1rem;
+
+        background-color: white;
+
+        h1 {
+            margin: 1rem;
+            font-size: xx-large;
+            text-align: center;
+        }
+
+        p,
+        summary {
+            padding: 1rem;
+            width: clamp(13cm, 33vw, 100vw);
+            margin-inline: auto;
+        }
+
+        code {
+            margin-block: 1rem;
+            padding: 1rem;
+            background-color: #444;
+            font-family: monospace;
+            font-weight: bold;
+            color: white;
+            border: dashed white 0.1rem;
+            border-radius: 0.5rem;
+            display: block;
+            width: calc(100% - 4rem);
+            white-space: pre;
+        }
+
+
+
+        h2 {
+            margin: 1rem;
+            text-align: center;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+
+            li {
+                em {
+                    font-weight: bold;
+                }
+
+                margin-block: 1rem;
+
+
+            }
+
+
+        }
+
+        dl {
+            display: grid;
+            grid-template: "dt dd";
+            width: fit-content;
+            margin: 1rem;
+
+            dt {
+                font-weight: bold;
+                text-align: end;
+                margin-right: 1rem;
+            }
+        }
+
+
+    }
+</style>
+
+<body>
+    <section class="intro">
+        <h1>
+            Radical simplicity & Typescript
+        </h1>
+        <summary>
+            Sometime it can be worth taking a step and re-examining the massive pile of garbage we put into our
+            techstack...
+            <br /> <br />
+            With NPM we use a dissying mixture of module formats and libarries and frameworks and our resultant code can
+            easily get <br />
+            extremly bloated and it's likely to contain any number of security issues from down the dependancy tree...
+            (usualy related to regular expressions lol).
+            <br /> <br />
+            It can be a good idea to try to go back to basics and maybe see how far you can go on standard web dom
+            features
+            and dev dependencies only.
+            <br /> <br />
+            This article is hardly original in this approach as people have done talks on the subject before i drew
+            great
+            inspiration from one <br />
+            in particular but i've not yet managed to find the link to it again or i would refence it here.
+            <br /> <br />
+            Needless to say this is my approach to radical simplicity and the article will aim to detail my techniques
+            and
+            thoughts and strategies on how to implement it... <br />
+            It's very OOP and design pattern based or at least my crude implementation of said patterns i am sure other
+            may
+            have better implementation.
+        </summary>
+
+    </section>
+
+
+    <section class="techStackEtc">
+        <h2>My tech stack/version info & Time of writing</h2>
+        <dl>
+            <dt>Backend:</dt>
+            <dd>DotNet Core 9.0 or newer</dd>
+            <dt>Webservice api:</dt>
+            <dd>SignalR + controllers</dd>
+            <dt>clintSide:</dt>
+            <dd>Typescript</dd>
+            <dt>Templating:</dt>
+            <dd>TSX templates with a custom factory</dd>
+            <dt>Tooling</dt>
+            <dd>NPM, Node.js, C#Script</dd>
+            <dt>OS(i am working in)</dt>
+            <dd>Linux Mint</dd>
+            <dt>IDE</dt>
+            <dd>VSCode</dd>
+            <dt>Time of writing</dt>
+            <dd>Febuary 2025</dd>
+        </dl>
+    </section>
+
+    <section class="setup">
+        <h2>VSCode setup</h2>
+        <p>
+            In addition to just setting up visual studio with a nice theme that wont drive you nuts and maybe moving the
+            primary side bar from left to right to feel more like regular full visual studio
+            there are a few good modules i would recomend.
+
+            its easy to go crazy here but my personal must haves would be:
+
+        <ul>
+            <li><em>C# Dev kit</em> (Microsoft)</li>
+            <li><em>Vscode-solution-Explorer</em> (by Fernando Escolar) <br /> this will let you basically work with
+                solution which <br /> is nice and makes it feel a lot more familiar and full visualstudio like..</li>
+            <li><em>ESLint</em> (Microsoft)</li>
+            <li><em>Liveserver</em> this is very useful for previews</li>
+        </ul>
+        </p>
+
+    </section>
+    <section class="environment">
+        <h2>dev environment</h2>
+        <p>
+            DotNet core 9.0 can easily be installed via the software manager just install all the packages.
+            <br />
+            vscode is a bit trickier since the flatback version might not integrate as well with the browser.<br />
+            i find its just easier to install the .deb version from the visual studio code page.
+            <br /><br />
+            <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>
+            <br />
+            using the flatpak version will almost always end up being a bit of a headache because its more sandboxed and
+            i've yet to figure out how to properly configure my way around this.
+            <br /><br />
+            This is also why i install the standard version of chromium which i basically only ever use for development
+            and testing and maybe watching DRM heavy straming websites.<br />
+            For those that always want to emphasis privacy there is vscodium and various ungoogled chrome versions.
+            <br /><br />
+            You will also need to install node.js/npm which can also be done from the software manager.<br />
+            You might possibly wanna get it via the node version manager in case you want to use a older version of
+            nodejs.<br />
+            but there theme here is to keep it simple stupid....
+
+        </p>
+    </section>
+
+    <section class="letsCode">
+        <h2>Let's get coding!</h2>
+        <ol>
+            <li>
+                Create the project folder naming it something appropriate without spacees or oddcharacter assume this
+                projectname will become a file.
+                <br />
+                Probably the folder should be in your github project folder assuming your using git (if not you might
+                wanna install githubs desktop its probably th easiest way to work with git).
+            </li>
+            <li>
+                In the folder open a console and run
+
+                <code>dotnet new web</code>
+
+                This will create a new dotnet web server project named after the folder it's created in.
+                <br /> <br />
+                If you are using git you might wanna run
+
+                <code>git init</code>
+
+                And then probably add a git ignore file.
+
+                A reasonably good one can be found at <a
+                    href="https://github.com/microsoft/dotnet/blob/main/.gitignore">https://github.com/microsoft/dotnet/blob/main/.gitignore</a>
+
+                <code> curl https://raw.githubusercontent.com/microsoft/dotnet/refs/heads/main/.gitignore > .gitignore </code>
+
+                If you wanna do it the easy way via console (assuming you have curl installed in windos you might use
+                wget i guess)
+
+            </li>
+
+            <li>
+                Next lets setup typescript by creating a <em>package.json</em> file in the project folder and giving it
+                the follwing code for now.
+                <code>
+{
+    "devDependencies": {
+        "typescript":"^5.7.3",
+        "@types/react":"^19.0.8"
+    }
+}
+                </code>
+
+
+                And then we run
+
+                <code>npm install</code>
+
+                In the terminal.<br />
+                (i personally like to use a customization for nemo the linux mint file manager that embeds a terminal so
+                i always have it handy...)
+                <br /><br />
+                Now for the cool stuff :D
+            </li>
+        </ol>
+
+    </section>
+
+    <section class="codingcontinued1">
+        <h2>Coding Part2: Program.cs</h2>
+        <p>
+            At this point we wanna set up a few things... staticfile hosting,<br />
+            routing for controllers and default document etc and we want cors or our modules wont load properly.<br />
+            at this point program.cs only contains the following
+            <code>
+
+            var builder = WebApplication.CreateBuilder(args);
+            var app = builder.Build();
+
+            app.MapGet("/", () => "Hello World!");
+
+            app.Run();
+
+            </code>
+
+            this is sadly insufficent to our needs so let add a few things.
+
+<code>
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; //this is just the cors policy name i am to lazy to change it from the microsoft article example name lolololol.....
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(); //here we add the service
+builder.Services.AddControllers(); //here we add support for controlls
+var app = builder.Build();
+app.UseHttpsRedirection(); //this is for Https kinda important... you dont wanna be running that old dirty http stuff nowdays
+app.UseCors(MyAllowSpecificOrigins); //here we set our policy we can specify other domains we want to be allowed to access like if we wated to allow access to another server here on another domain
+app.UseStaticFiles(
+new StaticFileOptions{  ServeUnknownFileTypes= true}  /*
+                                                        this allows us to use a wwwroot folder where we server our static files from.
+                                                        "ServeUnknownFileTypes= true"  is a bit of a dirty hack for
+                                                        now its just to allow use to see the sourcemap for our TSX files.. this should not be used for deployment.. 
+                                                        because we are basically listing everything including the kitchen sink here...*/
+);
+app.MapDefaultControllerRoute();    //well the name says it all
+app.MapStaticAssets();  //this map
+app.MapControllers();   //maps our controllers...
+app.Run();
+</code>
+
+            next up we want a tsconfig.json file
+    
+<code>
+{    
+    "compileOnSave": true, //self explanatory...  though technically it transpile on save not compile on save... but same thing... kinda
+    "compilerOptions": {
+            "module": "ES2022", //here we specify which version and type of javascript module we are using i picked the latest ecmascript module.
+            "target": "ES2024", //here we specify what version of ecmascript i.e javascript we are targeting.. i like the latest and greatest personally
+            "jsx": "react",     //here we specify that we are using react templates using the react formating
+            "jsxFactory": "JSX",    //this specifys the factory method used to interpret the code used this override the default one meaning we can write our own the function name would be JSX in this case
+            "jsxFragmentFactory": "fragment",   //honestly i am unsure what this does.... but the blessed Omnissiah as ordained that it is so... so until i figure out what the heck that does i am just gonna leave it lol
+            "sourceMap": true,  //we want to be able to debug our code and get the typescript not the generated js which may not be as readable
+        "lib": ["ES2024","DOM"]  //here we specify what intelicense we want... DOM means we want a page dom model.. if we where doing nodejs that would be unessesary... also specifying the latest ecmascript verison        
+    }   
+}
+</code>
+
+The key part here is the JSXFactory... you can name this thingy whateveryou want so long as that is the name you use for the factory method.. which is fairly easy to write.. it just a single function that takes 
+
+    tagName, attributes (as a object of keys and values ) and and children as an array of elements and strings
+
+    on the attribute key value pairs if the key start with on then that means its a event so that get handled by addeventlistener other wise its used to setAttrribute..
+    for children if its a text then you have to create a textnode via the document object and append it otherwise you just append it with appendChild....
+
+
+    the resulting function should look something like this 
+
+
+    <code>
+        export function JSX(tag: string, attributes: { [name: string]: any; }, ...children: Array&lt;string | HTMLElement&gt;) {
+
+            const newElement = document.createElement(tag);
+        
+            for (const key in attributes) {
+                if (key.startsWith("on")) {
+                    newElement.addEventListener(key.substring(1), attributes[key]);
+                    continue;
+                }
+        
+                newElement.setAttribute(key, attributes[key]);
+            }
+        
+            children.forEach(elm => {
+                if (typeof elm === "string") {
+                    newElement.appendChild(document.createTextNode(elm));
+                    return;
+                }
+        
+                newElement.appendChild(elm);
+        
+            });
+            return newElement;
+        }
+        
+    </code>
+
+
+    and now we can us it in tsx files  to write html straight up in our typescript function or methods etc...
+
+
+    like This...
+
+    <code>
+    import { JSX } from "./JSX.js";
+    import { TestController } from "../controller/TestController.js";
+    import { TestModel } from "../model/TestModel.js";
+
+    export const AboutView = (controller: TestController, model:TestModel) => {
+        return &lt;div onClick={e=&gt;  controller.click(model.id)}&gt;&lt;img src={model.img} alt="portrait" /&gt;&lt;p class="name"&gt;{model.name}&lt;/p&gt;&lt;/div&gt;;
+    };
+    </code>
+
+
+    </p>
+    </section>
+
+</body>
+
+</html>

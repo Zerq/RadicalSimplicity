@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch"
+
+    },
+    "devDependencies": {
+        "typescript":"5.7.3",
+        "@types/react":"19.0.8"
+
+    }
+}
