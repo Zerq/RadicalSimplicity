@@ -1,12 +1,25 @@
 import "./types.js";
+export const __frag = "__frag";
 export function JSX(tag, attributes, ...children) {
+    if (tag === __frag) {
+        const docFrag = document.createDocumentFragment();
+        children.forEach(child => {
+            if (typeof child === "string") {
+                docFrag.appendChild(document.createTextNode(child));
+            }
+            else {
+                docFrag.appendChild(child);
+            }
+        });
+        return docFrag;
+    }
     if (window.Omnicatz.Components.Has(tag)) {
-        return window.Omnicatz.Components.CreateElement(tag, attributes).Container;
+        return window.Omnicatz.Components.CreateElement(tag, attributes, children).Container;
     }
     const newElement = document.createElement(tag);
     for (const key in attributes) {
         if (key.startsWith("on")) {
-            newElement.addEventListener(key.substring(1), attributes[key]);
+            newElement.addEventListener(key.substring(2).toLowerCase(), attributes[key]);
             continue;
         }
         newElement.setAttribute(key, attributes[key]);
@@ -33,12 +46,13 @@ class ComponentRegistry {
     RegisterElement(tag, ctr) {
         this.#map.set(tag, ctr);
     }
-    CreateElement(tag, params) {
+    CreateElement(tag, params, children) {
         let ctr = this.#map.get(tag);
         const newComponent = new ctr();
         for (let key in params) {
             newComponent.SetParam(key, params[key]);
         }
+        newComponent.SetChildren(children);
         newComponent.Render();
         return newComponent;
     }
@@ -46,15 +60,29 @@ class ComponentRegistry {
 export class BaseComponent {
     model;
     #container;
+    id;
+    get Id() {
+        return this.id;
+    }
+    set Id(val) {
+        this.id = val;
+    }
     get Container() {
         return this.#container;
     }
     constructor() {
         this.#container = this.makeContainer();
     }
+    children;
+    SetChildren(children) {
+        this.children = children;
+    }
     Render() {
         this.#container.innerHTML = "";
-        this.#container.appendChild(this.View());
+        const view = this.View();
+        if (view !== null) {
+            this.#container.appendChild(view);
+        }
     }
 }
 if (!window.Omnicatz) {

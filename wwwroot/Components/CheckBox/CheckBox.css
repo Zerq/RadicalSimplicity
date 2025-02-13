@@ -1,0 +1,54 @@
+.Omnicheckbox {
+    display: contents;
+
+    .box {
+        width: 2rem;
+        height: 1rem;
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        border: solid 0.1rem blue;
+        border-radius: 1rem;
+        user-select: none;
+
+        input {
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            margin: -0.5px;
+            position: absolute;
+        }
+
+        .slider {
+            width: 1rem;
+            height: 1rem;
+            background-color: white;
+            border-radius: 50%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .box:has(input[checked]){
+        background-color: rgb(40, 55, 255);
+
+        .slider {
+            width: 1rem;
+            height: 1rem;
+            background-color: #fd0;
+            border-radius: 50%;
+            padding: 0;
+            margin: 0;
+            float: right;
+        }
+
+    }
+
+
+}
+
+
+.Omnicheckbox input {
+    width: 0.01px;
+    height: 0.01px;
+    overflow: hidden;
+}

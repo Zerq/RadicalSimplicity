@@ -1,0 +1,17 @@
+.Box {
+    display: contents;
+
+    div[data-orientation=Vertical] {
+        display: flex;
+        flex-direction: row;
+    }
+
+    div[data-orientation=Horizontal] {
+        display: flex;
+        flex-direction: column;
+    }
+}   
+
+.Box > div > * {
+    flex: auto;
+}

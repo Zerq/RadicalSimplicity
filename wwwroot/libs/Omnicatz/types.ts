@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
  
 
 export  interface RouterLike {
@@ -34,12 +36,13 @@ export type VoidFunc = () => void;
 
 export interface BaseComponentLike<T> {
     get Container():HTMLElement;
+    SetChildren(children:  Array<string | HTMLElement>):void;
     SetParam(name: string, value: any);
     Render():void;
 }
 
 export interface ComponentRegistryLike {
     RegisterElement<T>(tag: string, ctr: Ctr<BaseComponentLike<T>>): void;
-    CreateElement<T, V extends BaseComponentLike<T>>(tag: string, params: { [name: string]: any }): BaseComponentLike<V>;
+    CreateElement<T, V extends BaseComponentLike<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | HTMLElement>): BaseComponentLike<V>;
     Has(tag): boolean;
 }
