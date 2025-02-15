@@ -8,42 +8,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "../../libs/Omnicatz/Component.js";
+import { CSS } from "../../libs/Omnicatz/CSS.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
-let HomeView = class HomeView extends BaseComponent {
-    Name;
+let NavMenu = class NavMenu extends BaseComponent {
     constructor() {
         super();
+        this.model = { Title: "", Items: [] };
         this.Render();
     }
     makeContainer() {
         this.Id = crypto.randomUUID();
-        return JSX("div", { class: "HomeView", id: this.Id });
+        const wrapper = JSX("div", { class: "navMenu", id: this.Id });
+        return wrapper;
     }
     SetParam(name, value) {
-        if (name === "Name") {
-            this.Name = value;
+        if (name.toLowerCase() === "title") {
+            this.model.Title = value;
         }
-    }
-    changed(e) {
-        console.log("checkbox changed to " + e.detail);
+        if (name.toLowerCase() === "items") {
+            this.model.Items = value;
+        }
+        this.Render();
     }
     View() {
-        return JSX("div", null,
-            JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: "true" }),
-            JSX("omni-box", { Orientation: "Horizontal" },
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "hello"),
-                    JSX("div", null, "Bob"),
-                    JSX("div", null, "Blarg")),
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "wrew"),
-                    JSX("div", null, "345"),
-                    JSX("div", null, "tyu"))));
+        return JSX("header", null,
+            JSX("h1", null, this.model.Title),
+            JSX("nav", null,
+                JSX("ul", null, ...this.model.Items.map(n => JSX("li", null,
+                    JSX("a", { href: n.Url }, n.Name))))));
     }
 };
-HomeView = __decorate([
-    Component("home-view"),
+NavMenu = __decorate([
+    Component("nav-box"),
+    CSS("/Components/NavMenu/NavMenu.css"),
     __metadata("design:paramtypes", [])
-], HomeView);
-export { HomeView };
-//# sourceMappingURL=HomeView.js.map
+], NavMenu);
+export { NavMenu };
+//# sourceMappingURL=NavMenu.js.map

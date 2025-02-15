@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
-let HomeView = class HomeView extends BaseComponent {
+let AboutView = class AboutView extends BaseComponent {
     Name;
     constructor() {
         super();
@@ -20,30 +20,14 @@ let HomeView = class HomeView extends BaseComponent {
         return JSX("div", { class: "HomeView", id: this.Id });
     }
     SetParam(name, value) {
-        if (name === "Name") {
-            this.Name = value;
-        }
-    }
-    changed(e) {
-        console.log("checkbox changed to " + e.detail);
     }
     View() {
-        return JSX("div", null,
-            JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: "true" }),
-            JSX("omni-box", { Orientation: "Horizontal" },
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "hello"),
-                    JSX("div", null, "Bob"),
-                    JSX("div", null, "Blarg")),
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "wrew"),
-                    JSX("div", null, "345"),
-                    JSX("div", null, "tyu"))));
+        return JSX("div", null, " blarg ");
     }
 };
-HomeView = __decorate([
-    Component("home-view"),
+AboutView = __decorate([
+    Component("about-view"),
     __metadata("design:paramtypes", [])
-], HomeView);
-export { HomeView };
-//# sourceMappingURL=HomeView.js.map
+], AboutView);
+export { AboutView };
+//# sourceMappingURL=AboutView.js.map
