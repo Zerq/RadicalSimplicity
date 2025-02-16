@@ -10,15 +10,13 @@
         border: solid 0.1rem blue;
         border-radius: 1rem;
         user-select: none;
-
         input {
             width: 1px;
             height: 1px;
             overflow: hidden;
-            margin: -0.5px;
+            margin: -2px;
             position: absolute;
         }
-
         .slider {
             width: 1rem;
             height: 1rem;
@@ -30,7 +28,6 @@
     }
     .box:has(input[checked]){
         background-color: rgb(40, 55, 255);
-
         .slider {
             width: 1rem;
             height: 1rem;
@@ -40,12 +37,8 @@
             margin: 0;
             float: right;
         }
-
     }
-
-
 }
-
 
 .Omnicheckbox input {
     width: 0.01px;

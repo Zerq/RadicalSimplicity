@@ -8,11 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { BaseComponent, JSX, __frag } from "./libs/Omnicatz/JSX.js";
+import { CSS } from "./libs/Omnicatz/CSS.js";
 import "./libs/Omnicatz/types.js";
 import "./libs/Omnicatz/JSX.js";
 import "./libs/Omnicatz/Router.js";
 import "./Components/CheckBox/CheckBox.js";
 import "./Components/NavMenu/NavMenu.js";
+import "./Components/window/Window.js";
 import "./Components/Box/Box.js";
 import "./Views/Home/HomeView.js";
 import "./Views/about/AboutView.js";
@@ -64,6 +66,7 @@ let AppComponent = class AppComponent extends BasicAppRoot {
     menuItems = [{ Name: "Home", Url: "#home" }, { Name: "About", Url: "#about" }];
 };
 AppComponent = __decorate([
+    CSS("/layout.css"),
     Component("my-app"),
     __metadata("design:paramtypes", [])
 ], AppComponent);

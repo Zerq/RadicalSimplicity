@@ -9,10 +9,10 @@ export type Orientation = "Vertical" | "Horizontal";
 
 @CSS("/Components/Box/Box.css")
 @Component("omni-box")
-export class Box extends BaseComponent<boolean> {
+export class Box extends BaseComponent<null> {
     protected makeContainer(): HTMLElement {
         this.Id = crypto.randomUUID();
-        const wrapper = <div class="Box " id={this.Id}></div>;
+        const wrapper = <div class="Box" id={this.Id}></div>;
         return wrapper;
     }
 

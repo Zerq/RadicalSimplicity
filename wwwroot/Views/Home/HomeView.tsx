@@ -28,24 +28,27 @@ export class HomeView extends BaseComponent<unknown> {
     }
 
     protected View(): HTMLElement {
-        return <div> 
-            <omni-checkbox onCheckboxChanged={e => this.changed(e)} checked="true" /> 
-            <omni-box Orientation="Horizontal">
-            <omni-box Orientation="Vertical">
-                <div>hello</div>
-                <div>Bob</div>
-                <div>Blarg</div>
+        return <div>
+
+
+            <omni-window Orientation="Vertical">
+                <omni-checkbox onCheckboxChanged={e => this.changed(e)} checked="true" />
+                <omni-box Orientation="Horizontal">
+                    <omni-box Orientation="Vertical">
+                        <div>hello</div>
+                        <div>Bob</div>
+                        <div>Blarg</div>
+                    </omni-box>
+
+                    <omni-box Orientation="Vertical">
+                        <div>wrew</div>
+                        <div>345</div>
+                        <div>tyu</div>
+                    </omni-box>
+
+
                 </omni-box>
-
-                <omni-box Orientation="Vertical">
-                <div>wrew</div>
-                <div>345</div>
-                <div>tyu</div>
-                </omni-box>
-
-
-            </omni-box>
-        
+            </omni-window>
         </div>;
     }
 

@@ -1,0 +1,83 @@
+:root {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: black;
+    color: white;
+    --fore: rgb(87, 49, 0);
+    --back: gold;
+    --border: 0.05rem;
+    --borderR: 0.5rem;
+    --gradient:  linear-gradient(49deg, rgba(136,63,7,1) 0%, rgba(98,46,0,1) 11%, rgba(0,0,0,1) 17%, rgba(147,69,0,1) 20%, rgba(31,12,0,1) 36%, rgba(156,68,21,1) 39%, rgba(3,1,0,1) 67%, rgba(64,25,0,1) 70%, rgba(41,17,2,1) 100%);
+.navMenu {
+    header {
+        width: calc(100% - (var(--border) * 2));
+    }
+}
+
+
+section.window>div {
+    background-color: var(--back);
+    border: solid var(--border) var(--fore);
+    color: var(--fore);
+    border-radius:  0 0 var(--borderR)  var(--borderR);
+    margin: 0;
+ 
+
+}
+section.window>div> div {
+    padding:1rem;
+}
+section.window header {
+    border: solid var(--border) var(--fore);
+    background: var(--gradient);
+    
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: calc(100% - (var(--border) * 2));
+}
+
+    h2 {
+        padding: 0.2rem;
+        margin: 0;
+        color: white;
+        font-size: small;
+    }
+
+}
+
+ 
+
+
+header {
+    background-color: var(--back);
+    border: solid var(--border) var(--fore);
+    color: var(--fore);
+
+    h1 {
+        margin-inline: 1rem;
+        user-select: none;
+        text-shadow: 1px 1px var(--back);
+        color: var(--fore) !important;
+        font-size: larger;
+    }
+
+    border-radius: var(--borderR);
+
+    nav {
+        user-select: none;
+
+        li {
+            cursor: pointer;
+
+            a {
+                text-shadow: 1px 1px var(--back);
+                color: var(--fore) !important;
+            }
+        }
+    }
+
+    ;
+}
+
+main {}

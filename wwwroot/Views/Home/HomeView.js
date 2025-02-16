@@ -29,16 +29,17 @@ let HomeView = class HomeView extends BaseComponent {
     }
     View() {
         return JSX("div", null,
-            JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: "true" }),
-            JSX("omni-box", { Orientation: "Horizontal" },
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "hello"),
-                    JSX("div", null, "Bob"),
-                    JSX("div", null, "Blarg")),
-                JSX("omni-box", { Orientation: "Vertical" },
-                    JSX("div", null, "wrew"),
-                    JSX("div", null, "345"),
-                    JSX("div", null, "tyu"))));
+            JSX("omni-window", { Orientation: "Vertical" },
+                JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: "true" }),
+                JSX("omni-box", { Orientation: "Horizontal" },
+                    JSX("omni-box", { Orientation: "Vertical" },
+                        JSX("div", null, "hello"),
+                        JSX("div", null, "Bob"),
+                        JSX("div", null, "Blarg")),
+                    JSX("omni-box", { Orientation: "Vertical" },
+                        JSX("div", null, "wrew"),
+                        JSX("div", null, "345"),
+                        JSX("div", null, "tyu")))));
     }
 };
 HomeView = __decorate([

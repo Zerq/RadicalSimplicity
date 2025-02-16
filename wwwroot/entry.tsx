@@ -1,4 +1,6 @@
 import { BaseComponent, JSX, __frag } from "./libs/Omnicatz/JSX.js"
+import { CSS} from "./libs/Omnicatz/CSS.js"
+
 import "./libs/Omnicatz/types.js"
 import "./libs/Omnicatz/JSX.js"
 import "./libs/Omnicatz/Router.js";
@@ -6,7 +8,7 @@ import { AbsCtr, RouterLike } from "./libs/Omnicatz/types.js";
 import "./Components/CheckBox/CheckBox.js";
 import "./Components/NavMenu/NavMenu.js";
 
-
+import "./Components/window/Window.js";
 import "./Components/Box/Box.js";
 import "./Views/Home/HomeView.js";
 import "./Views/about/AboutView.js";
@@ -67,13 +69,14 @@ export abstract class BasicAppRoot extends BaseComponent<unknown> {
 }
 
 
-
+@CSS("/layout.css")
 @Component("my-app")
 export class AppComponent extends BasicAppRoot {
  
     public constructor(){
         super();
         this.setInitialView("#home")
+ 
     }
 
     public Route(router: RouterLike) {
