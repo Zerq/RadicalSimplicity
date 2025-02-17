@@ -1,15 +1,18 @@
 .Omnicheckbox {
     display: contents;
 
+
+
     .box {
         width: 2rem;
         height: 1rem;
-        background-color: black;
+        background-color: rgb(139, 1, 1);
         margin: 0;
         padding: 0;
-        border: solid 0.1rem blue;
+        border: solid 0.1rem rgb(0, 0, 0);
         border-radius: 1rem;
         user-select: none;
+
         input {
             width: 1px;
             height: 1px;
@@ -17,6 +20,24 @@
             margin: -2px;
             position: absolute;
         }
+
+        .slider {
+            width: 1rem;
+            height: 1rem;
+            background-color: white;
+
+            border-radius: 50%;
+            padding: 0;
+            margin: 0;
+
+            position: relative;
+            left: 0rem;
+        }
+    }
+
+    .box:has(input[checked]) {
+        background-color: rgb(25, 151, 0);
+
         .slider {
             width: 1rem;
             height: 1rem;
@@ -24,24 +45,94 @@
             border-radius: 50%;
             padding: 0;
             margin: 0;
-        }
-    }
-    .box:has(input[checked]){
-        background-color: rgb(40, 55, 255);
-        .slider {
-            width: 1rem;
-            height: 1rem;
-            background-color: #fd0;
-            border-radius: 50%;
-            padding: 0;
-            margin: 0;
-            float: right;
+            position: relative;
+            left: 1rem;
         }
     }
 }
+
+@keyframes slide {
+    from {
+        left: 1rem;
+    }
+
+    to {
+        left: 0rem;
+    }
+}
+
+@keyframes slideBack {
+    from {
+        left: 0rem;
+    }
+
+    to {
+        left: 1rem;
+    }
+}
+
+@keyframes colorIn {
+    from {
+        background-color: rgb(25, 151, 0);
+    }
+    to {
+        background-color: rgb(139, 1, 1);
+    }
+}
+
+
+@keyframes colorOut {
+    from {
+        background-color: rgb(139, 1, 1);
+    }
+    to {      
+        background-color: rgb(25, 151, 0);
+    }
+}
+
+.animate:has(input[data-checked="false"]) .slider {
+    animation-name: slide;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
+
+.animate:has(input[data-checked="true"]) .slider {
+    animation-name: slideBack;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
+
+
+.animate:has(input[data-checked="false"])  {
+    animation-name: colorIn;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
+
+.animate:has(input[data-checked="true"]) {
+    animation-name: colorOut;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
+
+
+
 
 .Omnicheckbox input {
     width: 0.01px;
     height: 0.01px;
     overflow: hidden;
+}
+
+.box:has(input[disabled]) {
+    background-color: gray;
+
 }

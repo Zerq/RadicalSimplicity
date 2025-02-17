@@ -6,14 +6,11 @@ import { JSX, __frag, BaseComponent } from "../../libs/Omnicatz/JSX.js"
 export type Orientation = "Vertical" | "Horizontal";
 
 
-
 @CSS("/Components/Window/Window.css")
 @Component("omni-window")
-export class Window extends BaseComponent<null> {
+export class WindowControl extends BaseComponent<null> {
     protected makeContainer(): HTMLElement {
-        this.Id = crypto.randomUUID();
-        const wrapper = <section class="window" id={this.Id}></section>;
-        return wrapper;
+        return this.makeContainerDefault(WindowControl, {tagType:"section", class:"window"})
     }
 
     protected title: string;

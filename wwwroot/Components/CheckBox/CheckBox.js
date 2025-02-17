@@ -7,30 +7,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var CheckBox_1;
 import { CSS } from "../../libs/Omnicatz/CSS.js";
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
-let CheckBox = class CheckBox extends BaseComponent {
+let CheckBox = CheckBox_1 = class CheckBox extends BaseComponent {
     constructor() {
         super();
         this.model = false;
         this.Render();
     }
+    #animte = false;
+    #disabled = false;
     click(e) {
         this.model = !this.model;
+        this.#animte = true;
         this.Render();
         let checkboxChanged = new CustomEvent("checkboxchanged", { detail: this.model });
         this.Container.querySelector(".box").dispatchEvent(checkboxChanged);
     }
     makeContainer() {
-        this.Id = crypto.randomUUID();
-        const wrapper = JSX("div", { class: "Omnicheckbox", id: this.Id });
-        return wrapper;
+        return this.makeContainerDefault(CheckBox_1, { class: "Omnicheckbox" });
     }
     #onCheckboxChanged;
     SetParam(name, value) {
+        if (name === "disabled") {
+            this.model = value == "true";
+        }
         if (name === "checked") {
-            this.model = value === "true";
+            this.model = value == "true";
         }
         if (name.toLowerCase() === "oncheckboxchanged") {
             this.#onCheckboxChanged = value;
@@ -38,25 +43,29 @@ let CheckBox = class CheckBox extends BaseComponent {
         this.Render();
     }
     View() {
+        let cls = "box";
+        if (this.#animte) {
+            cls = "box animate";
+        }
         if (this.model === true) {
-            return JSX("div", { class: "box", onCheckboxChanged: e => {
+            return JSX("div", { class: cls, onCheckboxChanged: e => {
                     if (this.#onCheckboxChanged) {
                         this.#onCheckboxChanged(e);
                     }
                 }, onClick: e => this.click(e) },
-                JSX("input", { type: "checkbox", "data-id": this.Id, checked: "" }),
+                JSX("input", { type: "checkbox", "data-id": this.Id, "data-checked": "true", checked: "" }),
                 JSX("div", { class: "slider" }));
         }
-        return JSX("div", { class: "box", onCheckboxChanged: e => {
+        return JSX("div", { class: cls, onCheckboxChanged: e => {
                 if (this.#onCheckboxChanged) {
                     this.#onCheckboxChanged(e);
                 }
             }, onClick: e => this.click(e) },
-            JSX("input", { type: "checkbox", "data-id": this.Id }),
+            JSX("input", { type: "checkbox", "data-checked": "false", "data-id": this.Id }),
             JSX("div", { class: "slider" }));
     }
 };
-CheckBox = __decorate([
+CheckBox = CheckBox_1 = __decorate([
     CSS("/Components/CheckBox/CheckBox.css"),
     Component("omni-checkbox"),
     __metadata("design:paramtypes", [])

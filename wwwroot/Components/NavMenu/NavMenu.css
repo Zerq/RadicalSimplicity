@@ -20,7 +20,7 @@ header {
 
         ul {
             display: flex;
-            width: auto%;
+            width: auto;
 
             li {
                 list-style: none;

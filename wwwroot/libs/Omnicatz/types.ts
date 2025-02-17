@@ -45,4 +45,5 @@ export interface ComponentRegistryLike {
     RegisterElement<T>(tag: string, ctr: Ctr<BaseComponentLike<T>>): void;
     CreateElement<T, V extends BaseComponentLike<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | HTMLElement>): BaseComponentLike<V>;
     Has(tag): boolean;
+    GetTag(ctr: Ctr<BaseComponentLike<any>>):string;
 }

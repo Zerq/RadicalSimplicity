@@ -50,21 +50,27 @@ export function JSX(tag: string, attributes: { [name: string]: any; }, ...childr
     });
     return newElement;
 }
-
 class ComponentRegistry implements ComponentRegistryLike{
-    #map: Map<string, Ctr<BaseComponent<any>>> = new Map();
-    // public Register(string, )
-    static instance: ComponentRegistry;
+    public GetTag(ctr: Ctr<BaseComponentLike<any>>): string {
+        return this.#reverseMap.get(ctr);
+    } 
 
-    Has(tag): boolean {
+    #map: Map<string, Ctr<BaseComponentLike<any>>> = new Map();
+    #reverseMap: Map<Ctr<BaseComponentLike<any>>,string> = new Map();
+    
+    // public Register(string, )
+    public static instance: ComponentRegistry;
+
+    public Has(tag): boolean {
         return this.#map.has(tag);
     }
 
-    RegisterElement<T>(tag: string, ctr: Ctr<BaseComponent<T>>) {
+    public RegisterElement<T>(tag: string, ctr: Ctr<BaseComponent<T>>) {
         this.#map.set(tag, ctr);
+        this.#reverseMap.set(ctr, tag);
     }
 
-    CreateElement<T, V extends BaseComponent<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | HTMLElement>): V {
+    public CreateElement<T, V extends BaseComponent<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | HTMLElement>): V {
         let ctr = this.#map.get(tag);
         const newComponent = new ctr();
 
@@ -84,18 +90,15 @@ export abstract class BaseComponent<T> implements BaseComponentLike<T> {
     protected model: T;
     #container: HTMLElement;
 
-    id:string;
+    #id:string;
 
-    get Id(): string{
-        return this.id;
+    public get Id(): string{
+        return this.#id;
     }
 
-    set Id(val:string){
-        this.id = val;
+    public set Id(val:string){
+        this.#id = val;
     }
-
-
-
 
     public get Container():HTMLElement {
         return this.#container;
@@ -114,10 +117,23 @@ export abstract class BaseComponent<T> implements BaseComponentLike<T> {
  
     protected abstract makeContainer(): HTMLElement;
 
+    protected makeContainerDefault(ctr: Ctr<BaseComponent<any>>, params:{tagType?:string, class?:string} = { tagType:undefined, class:undefined }):HTMLElement {
+        this.Id = crypto.randomUUID();;
+        
+        /*optional params --> */
+        const element = document.createElement(params.tagType ?? "div");
+        
+        if (params.class){
+            element.className = params.class;
+        }
+        /*<-- optional params  */
+      
+        element.setAttribute("data-tagtype",  window.Omnicatz.Components.GetTag(ctr));
+        element.id = this.Id;
+        return element;
+    }
+
     public abstract SetParam(name: string, value: any);
-
-
-
 
     protected abstract View(): HTMLElement;
     public Render() {
@@ -128,8 +144,7 @@ export abstract class BaseComponent<T> implements BaseComponentLike<T> {
         }
 
     }
-}
- 
+} 
 
 if (!window.Omnicatz){
     window.Omnicatz = <any>{};

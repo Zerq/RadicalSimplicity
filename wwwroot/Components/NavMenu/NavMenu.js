@@ -7,19 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var NavMenu_1;
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { CSS } from "../../libs/Omnicatz/CSS.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
-let NavMenu = class NavMenu extends BaseComponent {
+let NavMenu = NavMenu_1 = class NavMenu extends BaseComponent {
     constructor() {
         super();
         this.model = { Title: "", Items: [] };
         this.Render();
     }
     makeContainer() {
-        this.Id = crypto.randomUUID();
-        const wrapper = JSX("div", { class: "navMenu", id: this.Id });
-        return wrapper;
+        return this.makeContainerDefault(NavMenu_1, { class: "navMenu" });
     }
     SetParam(name, value) {
         if (name.toLowerCase() === "title") {
@@ -38,7 +37,7 @@ let NavMenu = class NavMenu extends BaseComponent {
                     JSX("a", { href: n.Url }, n.Name))))));
     }
 };
-NavMenu = __decorate([
+NavMenu = NavMenu_1 = __decorate([
     Component("nav-box"),
     CSS("/Components/NavMenu/NavMenu.css"),
     __metadata("design:paramtypes", [])

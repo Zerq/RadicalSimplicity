@@ -37,7 +37,11 @@ export function JSX(tag, attributes, ...children) {
     return newElement;
 }
 class ComponentRegistry {
+    GetTag(ctr) {
+        return this.#reverseMap.get(ctr);
+    }
     #map = new Map();
+    #reverseMap = new Map();
     // public Register(string, )
     static instance;
     Has(tag) {
@@ -45,6 +49,7 @@ class ComponentRegistry {
     }
     RegisterElement(tag, ctr) {
         this.#map.set(tag, ctr);
+        this.#reverseMap.set(ctr, tag);
     }
     CreateElement(tag, params, children) {
         let ctr = this.#map.get(tag);
@@ -60,12 +65,12 @@ class ComponentRegistry {
 export class BaseComponent {
     model;
     #container;
-    id;
+    #id;
     get Id() {
-        return this.id;
+        return this.#id;
     }
     set Id(val) {
-        this.id = val;
+        this.#id = val;
     }
     get Container() {
         return this.#container;
@@ -76,6 +81,19 @@ export class BaseComponent {
     children;
     SetChildren(children) {
         this.children = children;
+    }
+    makeContainerDefault(ctr, params = { tagType: undefined, class: undefined }) {
+        this.Id = crypto.randomUUID();
+        ;
+        /*optional params --> */
+        const element = document.createElement(params.tagType ?? "div");
+        if (params.class) {
+            element.className = params.class;
+        }
+        /*<-- optional params  */
+        element.setAttribute("data-tagtype", window.Omnicatz.Components.GetTag(ctr));
+        element.id = this.Id;
+        return element;
     }
     Render() {
         this.#container.innerHTML = "";

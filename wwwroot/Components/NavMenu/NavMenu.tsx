@@ -24,9 +24,7 @@ export class NavMenu extends BaseComponent<MenuDataLike> {
     }
 
     protected makeContainer(): HTMLElement {
-        this.Id = crypto.randomUUID();
-        const wrapper = <div class="navMenu" id={this.Id}></div>;
-        return wrapper;
+        return this.makeContainerDefault(NavMenu, { class:"navMenu"});
     }
 
 

@@ -4,14 +4,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var WindowControl_1;
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { CSS } from "../../libs/Omnicatz/CSS.js";
 import { JSX, __frag, BaseComponent } from "../../libs/Omnicatz/JSX.js";
-let Window = class Window extends BaseComponent {
+let WindowControl = WindowControl_1 = class WindowControl extends BaseComponent {
     makeContainer() {
-        this.Id = crypto.randomUUID();
-        const wrapper = JSX("section", { class: "window", id: this.Id });
-        return wrapper;
+        return this.makeContainerDefault(WindowControl_1, { tagType: "section", class: "window" });
     }
     title;
     SetParam(name, value) {
@@ -31,9 +30,9 @@ let Window = class Window extends BaseComponent {
         return JSX("div", null);
     }
 };
-Window = __decorate([
+WindowControl = WindowControl_1 = __decorate([
     CSS("/Components/Window/Window.css"),
     Component("omni-window")
-], Window);
-export { Window };
+], WindowControl);
+export { WindowControl };
 //# sourceMappingURL=Window.js.map
