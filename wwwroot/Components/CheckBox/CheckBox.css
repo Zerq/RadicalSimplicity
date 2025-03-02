@@ -12,6 +12,7 @@
         border: solid 0.1rem rgb(0, 0, 0);
         border-radius: 1rem;
         user-select: none;
+        display: inline-block;
 
         input {
             width: 1px;
@@ -72,20 +73,26 @@
 }
 
 @keyframes colorIn {
-    from {
+    0% {
         background-color: rgb(25, 151, 0);
     }
-    to {
+    50% {
+        background-color:  rgb(114, 102, 50)
+    }
+    100% {
         background-color: rgb(139, 1, 1);
     }
 }
 
 
 @keyframes colorOut {
-    from {
+    0% {
         background-color: rgb(139, 1, 1);
     }
-    to {      
+    50% {
+        background-color:  rgb(114, 102, 50)
+    }
+    100% {      
         background-color: rgb(25, 151, 0);
     }
 }
@@ -133,6 +140,6 @@
 }
 
 .box:has(input[disabled]) {
-    background-color: gray;
+    background-color: gray !important;
 
 }

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
+import { Route } from "../../libs/Omnicatz/types.js";
 let AboutView = class AboutView extends BaseComponent {
     Name;
     constructor() {
@@ -26,6 +27,7 @@ let AboutView = class AboutView extends BaseComponent {
     }
 };
 AboutView = __decorate([
+    Route("#about"),
     Component("about-view"),
     __metadata("design:paramtypes", [])
 ], AboutView);

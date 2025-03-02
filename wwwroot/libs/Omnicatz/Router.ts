@@ -146,11 +146,6 @@ class Router_ implements RouterLike {
 }
 
 
-
-if (!window.Omnicatz){
-    window.Omnicatz = <any>{};
-}
-
 if (!window.Omnicatz.Router){
     Object.defineProperty(window.Omnicatz, "Router", { 
         get value() : RouterLike {
@@ -161,5 +156,4 @@ if (!window.Omnicatz.Router){
         }
     })
 }
-
 

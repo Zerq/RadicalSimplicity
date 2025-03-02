@@ -1,15 +1,31 @@
-import "./types.js";
+import "./Omnicatz.js";
 export const __frag = "__frag";
 export function JSX(tag, attributes, ...children) {
     if (tag === __frag) {
         const docFrag = document.createDocumentFragment();
         children.forEach(child => {
-            if (typeof child === "string") {
+            const type = window.Omnicatz.MetaData.Get(child);
+            if (type.Name === "string") {
                 docFrag.appendChild(document.createTextNode(child));
+                return;
             }
-            else {
-                docFrag.appendChild(child);
+            if (type.Name === "number") {
+                docFrag.appendChild(document.createTextNode(child + ""));
+                return;
             }
+            if (type.Name === "bigint") {
+                docFrag.appendChild(document.createTextNode(child + ""));
+                return;
+            }
+            if (type.Name === "boolean") {
+                docFrag.appendChild(document.createTextNode(child + ""));
+                return;
+            }
+            if (type.Name === "Date") {
+                docFrag.appendChild(document.createTextNode(child.toString()));
+                return;
+            }
+            docFrag.appendChild(child);
         });
         return docFrag;
     }
@@ -28,8 +44,25 @@ export function JSX(tag, attributes, ...children) {
         if (!elm) {
             return;
         }
-        if (typeof elm === "string") {
+        const type = window.Omnicatz.MetaData.Get(elm);
+        if (type.Name === "string") {
             newElement.appendChild(document.createTextNode(elm));
+            return;
+        }
+        if (type.Name === "number") {
+            newElement.appendChild(document.createTextNode(elm + ""));
+            return;
+        }
+        if (type.Name === "bigint") {
+            newElement.appendChild(document.createTextNode(elm + ""));
+            return;
+        }
+        if (type.Name === "boolean") {
+            newElement.appendChild(document.createTextNode(elm + ""));
+            return;
+        }
+        if (type.Name === "Date") {
+            newElement.appendChild(document.createTextNode(elm.toString()));
             return;
         }
         newElement.appendChild(elm);
@@ -102,9 +135,6 @@ export class BaseComponent {
             this.#container.appendChild(view);
         }
     }
-}
-if (!window.Omnicatz) {
-    window.Omnicatz = {};
 }
 if (!window.Omnicatz.Components) {
     Object.defineProperty(window.Omnicatz, "Components", {

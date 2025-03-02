@@ -15,13 +15,13 @@ export class CheckBox extends BaseComponent<boolean> {
     #disabled = false;
 
     click(e: MouseEvent) {
-        this.model = !this.model;
-        this.#animte = true;
-        this.Render();
-
-        let checkboxChanged = new CustomEvent("checkboxchanged", { detail: this.model })
-        this.Container.querySelector(".box").dispatchEvent(checkboxChanged);
-
+        if (!this.#disabled) {
+            this.model = !this.model;
+            this.#animte = true;
+            this.Render();
+            let checkboxChanged = new CustomEvent("checkboxchanged", { detail: this.model })
+            this.Container.querySelector(".box").dispatchEvent(checkboxChanged);
+        }
     }
 
     protected makeContainer(): HTMLElement {
@@ -32,7 +32,7 @@ export class CheckBox extends BaseComponent<boolean> {
 
     public SetParam(name: string, value: any) {
         if (name === "disabled") {
-            this.model = value == "true";
+            this.#disabled = value == "true";
         }
 
         if (name === "checked") {
@@ -51,15 +51,15 @@ export class CheckBox extends BaseComponent<boolean> {
             cls = "box animate";
         }
 
-        if (this.model === true) {
-            return <div class={cls} onCheckboxChanged={e => {
-                if (this.#onCheckboxChanged) {
-                    this.#onCheckboxChanged(e)
-                }
-            }} onClick={e => this.click(e)}>
-                <input type="checkbox" data-id={this.Id} data-checked="true" checked="" />
-                <div class="slider"></div>
-            </div>;
+        let attributes: any = {
+        };
+
+        if (this.#disabled) {
+            attributes.disabled = "";
+        }
+
+        if (this.model) {
+            attributes.checked = "";
         }
 
         return <div class={cls} onCheckboxChanged={e => {
@@ -67,7 +67,7 @@ export class CheckBox extends BaseComponent<boolean> {
                 this.#onCheckboxChanged(e)
             }
         }} onClick={e => this.click(e)}>
-            <input type="checkbox" data-checked="false" data-id={this.Id} />
+            <input type="checkbox" data-checked={this.model} data-id={this.Id}  {...attributes} />
             <div class="slider"></div>
         </div>;
     }

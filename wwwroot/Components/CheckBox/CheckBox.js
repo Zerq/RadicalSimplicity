@@ -20,11 +20,13 @@ let CheckBox = CheckBox_1 = class CheckBox extends BaseComponent {
     #animte = false;
     #disabled = false;
     click(e) {
-        this.model = !this.model;
-        this.#animte = true;
-        this.Render();
-        let checkboxChanged = new CustomEvent("checkboxchanged", { detail: this.model });
-        this.Container.querySelector(".box").dispatchEvent(checkboxChanged);
+        if (!this.#disabled) {
+            this.model = !this.model;
+            this.#animte = true;
+            this.Render();
+            let checkboxChanged = new CustomEvent("checkboxchanged", { detail: this.model });
+            this.Container.querySelector(".box").dispatchEvent(checkboxChanged);
+        }
     }
     makeContainer() {
         return this.makeContainerDefault(CheckBox_1, { class: "Omnicheckbox" });
@@ -32,7 +34,7 @@ let CheckBox = CheckBox_1 = class CheckBox extends BaseComponent {
     #onCheckboxChanged;
     SetParam(name, value) {
         if (name === "disabled") {
-            this.model = value == "true";
+            this.#disabled = value == "true";
         }
         if (name === "checked") {
             this.model = value == "true";
@@ -47,21 +49,19 @@ let CheckBox = CheckBox_1 = class CheckBox extends BaseComponent {
         if (this.#animte) {
             cls = "box animate";
         }
-        if (this.model === true) {
-            return JSX("div", { class: cls, onCheckboxChanged: e => {
-                    if (this.#onCheckboxChanged) {
-                        this.#onCheckboxChanged(e);
-                    }
-                }, onClick: e => this.click(e) },
-                JSX("input", { type: "checkbox", "data-id": this.Id, "data-checked": "true", checked: "" }),
-                JSX("div", { class: "slider" }));
+        let attributes = {};
+        if (this.#disabled) {
+            attributes.disabled = "";
+        }
+        if (this.model) {
+            attributes.checked = "";
         }
         return JSX("div", { class: cls, onCheckboxChanged: e => {
                 if (this.#onCheckboxChanged) {
                     this.#onCheckboxChanged(e);
                 }
             }, onClick: e => this.click(e) },
-            JSX("input", { type: "checkbox", "data-checked": "false", "data-id": this.Id }),
+            JSX("input", { type: "checkbox", "data-checked": this.model, "data-id": this.Id, ...attributes }),
             JSX("div", { class: "slider" }));
     }
 };

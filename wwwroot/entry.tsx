@@ -1,27 +1,27 @@
+
+
 import { BaseComponent, JSX, __frag } from "./libs/Omnicatz/JSX.js"
 import { CSS} from "./libs/Omnicatz/CSS.js"
 
 import "./libs/Omnicatz/types.js"
 import "./libs/Omnicatz/JSX.js"
 import "./libs/Omnicatz/Router.js";
+import "./libs/Omnicatz/MetaData.js";
+
 import { AbsCtr, RouterLike } from "./libs/Omnicatz/types.js";
 import "./Components/CheckBox/CheckBox.js";
 import "./Components/NavMenu/NavMenu.js";
+
+import "./Components/ListView/ListView.js";
 
 import "./Components/window/Window.js";
 import "./Components/Box/Box.js";
 import "./Views/Home/HomeView.js";
 import "./Views/about/AboutView.js";
 
-
-
-
 import { Component } from "./libs/Omnicatz/Component.js";
 import { Children, ReactNode } from "react";
 import { MenuDataLike, LinkLike } from "./Components/NavMenu/NavMenu.js";
-
-
-
  
 export abstract class BasicAppRoot extends BaseComponent<unknown> {
     public constructor() {
@@ -76,17 +76,17 @@ export class AppComponent extends BasicAppRoot {
     public constructor(){
         super();
         this.setInitialView("#home")
- 
+
+        window.Omnicatz.Router.DefaultRouteAction = (path, ctor, tag, params)=>{
+            this.renderView(tag, {},[]);
+        }; 
     }
 
-    public Route(router: RouterLike) {
-        router.RegisterPath("#home", () => {
-            this.renderView("home-view", {},[]);
-        });
 
-        router.RegisterPath("#about", () => {
-            this.renderView("about-view", {},[]);
-        });
+
+
+    public Route(router: RouterLike) {
+
     }
 
     menuItems = [{Name: "Home", Url: "#home"}, {Name: "About", Url: "#about"}]

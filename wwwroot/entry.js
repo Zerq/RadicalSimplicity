@@ -12,8 +12,10 @@ import { CSS } from "./libs/Omnicatz/CSS.js";
 import "./libs/Omnicatz/types.js";
 import "./libs/Omnicatz/JSX.js";
 import "./libs/Omnicatz/Router.js";
+import "./libs/Omnicatz/MetaData.js";
 import "./Components/CheckBox/CheckBox.js";
 import "./Components/NavMenu/NavMenu.js";
+import "./Components/ListView/ListView.js";
 import "./Components/window/Window.js";
 import "./Components/Box/Box.js";
 import "./Views/Home/HomeView.js";
@@ -54,14 +56,11 @@ let AppComponent = class AppComponent extends BasicAppRoot {
     constructor() {
         super();
         this.setInitialView("#home");
+        window.Omnicatz.Router.DefaultRouteAction = (path, ctor, tag, params) => {
+            this.renderView(tag, {}, []);
+        };
     }
     Route(router) {
-        router.RegisterPath("#home", () => {
-            this.renderView("home-view", {}, []);
-        });
-        router.RegisterPath("#about", () => {
-            this.renderView("about-view", {}, []);
-        });
     }
     menuItems = [{ Name: "Home", Url: "#home" }, { Name: "About", Url: "#about" }];
 };

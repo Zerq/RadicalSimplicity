@@ -9,10 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
+import { Route } from "../../libs/Omnicatz/types.js";
 let HomeView = class HomeView extends BaseComponent {
     Name;
     constructor() {
         super();
+        this.model = {
+            checked: true,
+            list: [{ burklax: 3, blarg: true, splarg: "hello" }, { burklax: 23, blarg: false, splarg: "zog zog zog" }, { burklax: 223, blarg: true, splarg: "weeee" }]
+        };
         this.Render();
     }
     makeContainer() {
@@ -30,7 +35,8 @@ let HomeView = class HomeView extends BaseComponent {
     View() {
         return JSX("div", null,
             JSX("omni-window", { Orientation: "Vertical" },
-                JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: "true" }),
+                JSX("omni-checkbox", { disabled: "true", onCheckboxChanged: e => this.changed(e), checked: "true" }),
+                JSX("omni-checkbox", { onCheckboxChanged: e => this.changed(e), checked: this.model.checked }),
                 JSX("omni-box", { Orientation: "Horizontal" },
                     JSX("omni-box", { Orientation: "Vertical" },
                         JSX("div", null, "hello"),
@@ -39,10 +45,24 @@ let HomeView = class HomeView extends BaseComponent {
                     JSX("omni-box", { Orientation: "Vertical" },
                         JSX("div", null, "wrew"),
                         JSX("div", null, "345"),
-                        JSX("div", null, "tyu")))));
+                        JSX("div", null, "tyu")),
+                    JSX("omni-listview", { data: this.model.list, listmode: "TabletView", tableheader: ["Blarg", "Burklax", "Splarg"], tabletemplate: (n) => {
+                            const item = JSX("tr", null,
+                                JSX("td", null, n.blarg),
+                                JSX("td", null, n.burklax),
+                                JSX("td", null, n.splarg));
+                            return item;
+                        }, listItemTemplate: (n) => {
+                            const item = JSX("div", null,
+                                JSX("div", null, n.blarg),
+                                JSX("div", null, n.burklax),
+                                JSX("div", null, n.splarg));
+                            return item;
+                        } }))));
     }
 };
 HomeView = __decorate([
+    Route("#home"),
     Component("home-view"),
     __metadata("design:paramtypes", [])
 ], HomeView);

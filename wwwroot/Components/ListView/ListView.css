@@ -1,0 +1,23 @@
+.Box {
+    display: contents;
+
+    div[data-orientation=Vertical] {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+    div[data-orientation=Horizontal] {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+    }
+}   
+
+.Box > div > * {
+    flex: auto;
+    height: 100%;
+    width: 100%;
+}

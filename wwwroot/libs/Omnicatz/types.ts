@@ -1,27 +1,14 @@
 import { ReactNode } from "react";
-
- 
+import { MetaDataLike } from "./MetaData.js";
+import { BaseComponent } from "./JSX.js";
 
 export  interface RouterLike {
     Route(newHash: string): void;
     EvaluateRoute(hash: string): VoidFunc | null;
     RegisterPath(format: string, action: Function):void;
     RegisterSimplePath(format: string, action: () => void):void;
+    DefaultRouteAction?: (path:string, ctor: Ctr<BaseComponent<any>>, tag:string,  ...params:Array<any>) => void;
 } 
-
-export interface OmnicatzsLike {
-    Components:ComponentRegistryLike;
-    Router:RouterLike;
-    
-}
-
-declare global {
-        interface Window {
-            Omnicatz:OmnicatzsLike,
-        }
-    }
-
-    
 
 /** abstract class type */
 export type AbsCtr<T> = Function & { prototype: T; };
@@ -43,7 +30,19 @@ export interface BaseComponentLike<T> {
 
 export interface ComponentRegistryLike {
     RegisterElement<T>(tag: string, ctr: Ctr<BaseComponentLike<T>>): void;
-    CreateElement<T, V extends BaseComponentLike<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | HTMLElement>): BaseComponentLike<V>;
+    CreateElement<T, V extends BaseComponentLike<T>>(tag: string, params: { [name: string]: any }, children:  Array<string | boolean| number | bigint | Date| HTMLElement>): BaseComponentLike<V>;
     Has(tag): boolean;
     GetTag(ctr: Ctr<BaseComponentLike<any>>):string;
+}
+
+
+
+
+export function Route<V, T extends BaseComponent<V>>(path: string) {
+    return (ctor: Ctr<T>) => {
+
+        const tag = window.Omnicatz.Components.GetTag(ctor);
+
+        window.Omnicatz.Router.RegisterPath(path, (...params:Array<any>)=>  window.Omnicatz.Router.DefaultRouteAction?.(path, ctor, tag, params));
+    };
 }

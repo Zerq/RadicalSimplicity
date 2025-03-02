@@ -1,7 +1,8 @@
 import { Component } from "../../libs/Omnicatz/Component.js";
 import { BaseComponent, JSX } from "../../libs/Omnicatz/JSX.js";
+import { Route } from "../../libs/Omnicatz/types.js";
 
-
+@Route("#about")
 @Component("about-view")
 export class AboutView extends BaseComponent<unknown> {
     Name: string;

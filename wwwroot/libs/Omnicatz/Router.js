@@ -121,9 +121,6 @@ class Router_ {
     }
     routes = [];
 }
-if (!window.Omnicatz) {
-    window.Omnicatz = {};
-}
 if (!window.Omnicatz.Router) {
     Object.defineProperty(window.Omnicatz, "Router", {
         get value() {
